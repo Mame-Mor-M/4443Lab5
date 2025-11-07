@@ -26,25 +26,21 @@ class ItemListPage extends StatelessWidget {
 
   final String title;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text ("LIST VIEW")),
-
       body: ListView.builder(
         itemCount: 35,
         itemBuilder: (BuildContext context, int index){
           return ListTile(
-            leading: const Icon(Icons.list),
-
-            trailing: const Text(
-              "Animal",
-              style: TextStyle(color: Colors.green, fontSize: 15),
-            ),
-            title: Text("List Item $index"),
+            title: Column(children: [Image.asset(imageAssets[0]), Text("List Item $index")]),
           );
         },
       ),
     );
   }
 }
+
+List<String> imageAssets = ['assets/FirstRender.png'];
