@@ -32,15 +32,27 @@ class ItemListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text ("LIST VIEW")),
       body: ListView.builder(
-        itemCount: 35,
+        itemCount: 15,
         itemBuilder: (BuildContext context, int index){
-          return ListTile(
-            title: Column(children: [Image.asset(imageAssets[0]), Text("List Item $index")]),
-          );
+          return SizedBox(width: 0, child: ListTile(
+            title: Column(children: [Text('${index + 1}. ${imageNames[index]}'), Image.asset(imageAssets[index]), Text(imageDescriptions[0])]),
+          ));
         },
       ),
     );
   }
 }
 
-List<String> imageAssets = ['assets/FirstRender.png'];
+List<String> imageAssets = ['assets/Bear.jpg' , 'assets/Cat.jpg', 
+'assets/Cow.jpg', 'assets/Crab.jpg', 'assets/Deer.jpg', 
+'assets/Dog.jpg', 'assets/Hawk.jpg', 'assets/Horse.jpg', 
+'assets/Lion.jpg', 'assets/Sheep.jpg', 'assets/Snake.jpg', 
+'assets/Tiger.jpg', 'assets/Turtle.jpg', 'assets/Whale.jpg', 
+'assets/Wolf.jpg'];
+List<String> imageNames = ['Bear', 'Cat', 
+'Cow', 'Crab', 'Deer',
+'Dog', 'Hawk', 'Horse', 
+'Lion', 'Sheep', 'Snake', 
+'Tiger', 'Turtle', 'Whale', 
+'Wolf',];
+List<String> imageDescriptions = ['Description area lorem ipsum random latin so the text looks like real english lorem ipsum test hello goodbye text needs to wrap but is not wrapping at the moment'];
