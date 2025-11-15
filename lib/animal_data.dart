@@ -10,7 +10,7 @@ class Animal {
   });
 }
 
-// Realistic descriptions for each animal
+//animal data with some missing info for testing error handling
 List<Animal> animals = [
   Animal(
     name: "Bear",
