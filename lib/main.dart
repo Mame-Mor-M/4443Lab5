@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'detail_screen.dart';
+import 'animal_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,52 +9,106 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Home banner',
+      title: 'Animal List App',
       theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 0, 0))
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
+        scaffoldBackgroundColor: const Color(0xFF1A1A1D), 
+        useMaterial3: true,
       ),
-      home: const ItemListPage(title: 'Lab 5'),
+      home: const ItemListPage(),
     );
   }
 }
 
 class ItemListPage extends StatelessWidget {
-  const ItemListPage({super.key, required this.title});
-
-  final String title;
-
+  const ItemListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text ("LIST VIEW")),
+      appBar: AppBar(
+        title: const Text("Animal List"),
+        backgroundColor: Colors.redAccent,
+        foregroundColor: Colors.white,
+      ),
+
       body: ListView.builder(
-        itemCount: 15,
-        itemBuilder: (BuildContext context, int index){
-          return SizedBox(width: 0, child: ListTile(
-            title: Column(children: [Text('${index + 1}. ${imageNames[index]}'), Image.asset(imageAssets[index]), Text(imageDescriptions[0])]),
-          ));
+        padding: const EdgeInsets.all(12),
+        itemCount: animals.length,
+        itemBuilder: (BuildContext context, int index) {
+          final animal = animals[index];
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+
+            child: Card(
+              color: const Color(0xFFFFF8F2), // light card
+              elevation: 4,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(12),
+
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    animal.imageUrl,
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover,
+                    // image fallback if asset missing
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 70,
+                        height: 70,
+                        color: Colors.grey.shade300,
+                        child: const Icon(Icons.broken_image, color: Colors.black54),
+                      );
+                    },
+                  ),
+                ),
+
+                title: Text(
+                  safeText(animal.name, "Unknown Animal"), 
+                  // title with default text just in case
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF1A1A1D),
+                  ),
+                ),
+
+                subtitle: Text(
+                  safeText(animal.description, "No description available."),
+                  // description with default text just in case
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontSize: 14,
+                  ),
+                ),
+
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DetailScreen(animal: animal)),
+                  );
+                },
+              ),
+            ),
+          );
         },
       ),
     );
   }
 }
 
-List<String> imageAssets = ['assets/Bear.jpg' , 'assets/Cat.jpg', 
-'assets/Cow.jpg', 'assets/Crab.jpg', 'assets/Deer.jpg', 
-'assets/Dog.jpg', 'assets/Hawk.jpg', 'assets/Horse.jpg', 
-'assets/Lion.jpg', 'assets/Sheep.jpg', 'assets/Snake.jpg', 
-'assets/Tiger.jpg', 'assets/Turtle.jpg', 'assets/Whale.jpg', 
-'assets/Wolf.jpg'];
-List<String> imageNames = ['Bear', 'Cat', 
-'Cow', 'Crab', 'Deer',
-'Dog', 'Hawk', 'Horse', 
-'Lion', 'Sheep', 'Snake', 
-'Tiger', 'Turtle', 'Whale', 
-'Wolf',];
-List<String> imageDescriptions = ['Description area lorem ipsum random latin so the text looks like real english lorem ipsum test hello goodbye text needs to wrap but is not wrapping at the moment'];
+// safe text helper
+String safeText(String? text, String fallback) {
+  if (text == null || text.trim().isEmpty) return fallback;
+  return text;
+}
