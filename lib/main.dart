@@ -30,12 +30,12 @@ class ItemListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text ("LIST VIEW")),
+      appBar: AppBar(title: const Text ("Animal List - Lab 5")),
       body: ListView.builder(
         itemCount: 15,
         itemBuilder: (BuildContext context, int index){
-          return SizedBox(width: 0, child: ListTile(
-            title: Column(children: [Text('${index + 1}. ${imageNames[index]}'), Image.asset(imageAssets[index]), Text(imageDescriptions[0])]),
+          return Card( margin: EdgeInsets.symmetric(vertical: 25), child: ListTile(
+            title: SizedBox(width: 10, child: Column(children: [Text('${index + 1}. ${imageNames[index]}'), Image.asset(imageAssets[index]), Text(imageDescriptions[0])])),
           ));
         },
       ),
