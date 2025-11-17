@@ -23,13 +23,13 @@ List<Animal> animals = [
     imageUrl: "assets/Cat.jpg",
   ),
   Animal(
-    name: "", // missing title
+    name: "Cow", // missing title
     description: "Cows are domesticated animals raised for milk and meat.",
     imageUrl: "assets/Cow.jpg",
   ),
   Animal(
     name: "Crab",
-    description: "", // missing description
+    description: "Crabs are members of the animal group called crustaceans. There are at least 7,000 species, or kinds, of crab.", // missing description
     imageUrl: "assets/Crab.jpg",
   ),
   Animal(
