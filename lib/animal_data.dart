@@ -35,7 +35,7 @@ List<Animal> animals = [
   Animal(
     name: "Deer",
     description: "Deer are graceful forest animals with antlers, often found in temperate regions.",
-    imageUrl: "assets/MissingImage.jpg", // missing image
+    imageUrl: "assets/Deer.jpg",
   ),
   Animal(
     name: "Dog",
